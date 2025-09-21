@@ -1,8 +1,38 @@
 import { computed } from 'vue'
+import { storeToRefs } from 'pinia'
 import { useGameStore } from '../stores/gameStore'
 
 export const useGame = () => {
   const store = useGameStore()
+  
+  // storeToRefsを使ってrefを正しく取得
+  const {
+    gameState,
+    isLoading,
+    error,
+    showResult,
+    lastChoice,
+    isCorrect,
+    currentStatusCode,
+    currentLevel,
+    progress,
+    isGameOver,
+    isCleared,
+    hasAnomaly,
+    attempts,
+    accuracy,
+    activeAnomalies
+  } = storeToRefs(store)
+  
+  // Actionsは直接取得
+  const {
+    startNewGame,
+    continueGame,
+    advancePage,
+    goBack,
+    restartGame,
+    resetError
+  } = store
 
   const statusCodeDisplay = computed(() => {
     const code = store.currentStatusCode
@@ -64,6 +94,7 @@ export const useGame = () => {
   })
 
   return {
+    // Computed from this composable
     statusCodeDisplay,
     levelDisplay,
     progressPercentage,
@@ -71,6 +102,28 @@ export const useGame = () => {
     needsRestart,
     resultMessage,
     resultClass,
-    ...store
+    // State and computed from store
+    gameState,
+    isLoading,
+    error,
+    showResult,
+    lastChoice,
+    isCorrect,
+    currentStatusCode,
+    currentLevel,
+    progress,
+    isGameOver,
+    isCleared,
+    hasAnomaly,
+    attempts,
+    accuracy,
+    activeAnomalies,
+    // Actions from store
+    startNewGame,
+    continueGame,
+    advancePage,
+    goBack,
+    restartGame,
+    resetError
   }
 }

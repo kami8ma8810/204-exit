@@ -31,7 +31,7 @@
       </div>
     </div>
     
-    <div class="flex gap-4">
+    <div class="flex gap-4" :class="{ 'justify-center': !hasSavedGame }">
       <button
         @click="$emit('start')"
         class="flex-1 px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors font-bold"
@@ -39,6 +39,7 @@
         新規ゲーム
       </button>
       <button
+        v-if="hasSavedGame"
         @click="$emit('continue')"
         class="flex-1 px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors font-bold"
       >
@@ -49,8 +50,22 @@
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted } from 'vue'
+
 defineEmits<{
   start: []
   continue: []
 }>()
+
+const hasSavedGame = ref(false)
+
+onMounted(() => {
+  // 保存されたゲームがあるかチェック
+  try {
+    const savedGame = localStorage.getItem('204-exit-current-game')
+    hasSavedGame.value = !!savedGame
+  } catch (e) {
+    console.error('Failed to check saved game:', e)
+  }
+})
 </script>

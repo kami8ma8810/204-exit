@@ -1,5 +1,5 @@
 import { Game } from '@domain/entities/Game'
-import { IGameRepository } from '@domain/repositories/IGameRepository'
+import { IGameRepository, GameSaveData } from '@domain/repositories/IGameRepository'
 import { GameStateDTO } from '../dto/GameStateDTO'
 
 export type Result<T> = 
@@ -65,10 +65,16 @@ const createGoBackPageUseCase = (repository: IGameRepository): GoBackPageUseCase
         
         const nextGame = game.makeChoice('back')
         
-        await repository.save({
-          ...nextGame,
-          currentPage: nextGame.currentPage.deactivateAnomalies()
-        })
+        const saveData: GameSaveData = {
+          id: nextGame.id,
+          currentStatusCode: nextGame.currentPage.statusCode.value,
+          history: nextGame.history,
+          attempts: nextGame.attempts,
+          createdAt: currentGameData.createdAt,
+          updatedAt: new Date().toISOString()
+        }
+        
+        await repository.save(saveData)
         
         return createSuccessResult(gameToDTO(nextGame))
       } catch (error) {

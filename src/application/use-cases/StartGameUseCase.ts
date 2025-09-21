@@ -1,5 +1,5 @@
 import { Game } from '@domain/entities/Game'
-import { IGameRepository } from '@domain/repositories/IGameRepository'
+import { IGameRepository, GameSaveData } from '@domain/repositories/IGameRepository'
 import { GameStateDTO } from '../dto/GameStateDTO'
 
 export type Result<T> = 
@@ -51,10 +51,16 @@ const createStartGameUseCase = (repository: IGameRepository): StartGameUseCase =
   const startNewGame = async (): Promise<Game> => {
     const game = Game.create()
     
-    await repository.save({
-      ...game,
-      currentPage: game.currentPage.deactivateAnomalies()
-    })
+    const saveData: GameSaveData = {
+      id: game.id,
+      currentStatusCode: game.currentPage.statusCode.value,
+      history: game.history,
+      attempts: game.attempts,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    }
+    
+    await repository.save(saveData)
     
     return game
   }

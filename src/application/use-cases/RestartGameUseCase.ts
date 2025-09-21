@@ -1,5 +1,5 @@
 import { Game } from '@domain/entities/Game'
-import { IGameRepository } from '@domain/repositories/IGameRepository'
+import { IGameRepository, GameSaveData } from '@domain/repositories/IGameRepository'
 import { GameStateDTO } from '../dto/GameStateDTO'
 
 export type Result<T> = 
@@ -54,10 +54,15 @@ const createRestartGameUseCase = (repository: IGameRepository): RestartGameUseCa
         
         if (!currentGameData) {
           const newGame = Game.create()
-          await repository.save({
-            ...newGame,
-            currentPage: newGame.currentPage.deactivateAnomalies()
-          })
+          const saveData: GameSaveData = {
+            id: newGame.id,
+            currentStatusCode: newGame.currentPage.statusCode.value,
+            history: newGame.history,
+            attempts: newGame.attempts,
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
+          }
+          await repository.save(saveData)
           return createSuccessResult(gameToDTO(newGame))
         }
         
@@ -70,10 +75,16 @@ const createRestartGameUseCase = (repository: IGameRepository): RestartGameUseCa
         
         const restartedGame = game.restart()
         
-        await repository.save({
-          ...restartedGame,
-          currentPage: restartedGame.currentPage.deactivateAnomalies()
-        })
+        const saveData: GameSaveData = {
+          id: restartedGame.id,
+          currentStatusCode: restartedGame.currentPage.statusCode.value,
+          history: restartedGame.history,
+          attempts: restartedGame.attempts,
+          createdAt: currentGameData.createdAt,
+          updatedAt: new Date().toISOString()
+        }
+        
+        await repository.save(saveData)
         
         return createSuccessResult(gameToDTO(restartedGame))
       } catch (error) {

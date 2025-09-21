@@ -10,7 +10,7 @@ export interface GameSaveData {
 }
 
 export interface IGameRepository {
-  save: (game: Game) => Promise<void>
+  save: (saveData: GameSaveData) => Promise<void>
   load: (id: string) => Promise<GameSaveData | null>
   delete: (id: string) => Promise<void>
   getCurrentGame: () => Promise<GameSaveData | null>

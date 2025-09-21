@@ -36,6 +36,7 @@ export const useGameStore = defineStore('game', () => {
 
   // Actions
   const startNewGame = async () => {
+    console.log('[gameStore] startNewGame called')
     isLoading.value = true
     error.value = null
     showResult.value = false
@@ -43,13 +44,17 @@ export const useGameStore = defineStore('game', () => {
 
     try {
       const result = await startGameUseCase.execute()
+      console.log('[gameStore] startNewGame result:', result)
       if (result.isSuccess) {
         gameState.value = result.value
+        console.log('[gameStore] Game state set:', gameState.value)
       } else {
         error.value = result.error
+        console.error('Start game error:', result.error)
       }
     } catch (e) {
       error.value = 'ゲーム開始に失敗しました'
+      console.error('Start game exception:', e)
     } finally {
       isLoading.value = false
     }

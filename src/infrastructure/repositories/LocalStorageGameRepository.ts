@@ -7,22 +7,19 @@ const HISTORY_KEY = '204-exit-game-history'
 export class LocalStorageGameRepository implements IGameRepository {
   private storage: Storage
 
-  constructor(storage: Storage = window.localStorage) {
-    this.storage = storage
+  constructor(storage?: Storage) {
+    this.storage = storage || (typeof window !== 'undefined' ? window.localStorage : {} as Storage)
   }
 
-  async save(game: Game): Promise<void> {
-    const saveData: GameSaveData = {
-      id: game.id,
-      currentStatusCode: game.currentPage.statusCode.value,
-      history: game.history,
-      attempts: game.attempts,
-      createdAt: this.getCreatedAt(game.id) || new Date().toISOString(),
+  async save(saveData: GameSaveData): Promise<void> {
+    const dataToSave: GameSaveData = {
+      ...saveData,
+      createdAt: this.getCreatedAt(saveData.id) || saveData.createdAt,
       updatedAt: new Date().toISOString()
     }
 
-    this.storage.setItem(STORAGE_KEY, JSON.stringify(saveData))
-    this.addToHistory(saveData)
+    this.storage.setItem(STORAGE_KEY, JSON.stringify(dataToSave))
+    this.addToHistory(dataToSave)
   }
 
   async load(id: string): Promise<GameSaveData | null> {

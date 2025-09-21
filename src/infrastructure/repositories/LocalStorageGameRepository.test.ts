@@ -23,9 +23,16 @@ describe('LocalStorageGameRepository', () => {
 
   describe('save', () => {
     it('ゲームを保存できる', async () => {
-      const game = Game.create()
+      const saveData = {
+        id: 'test-game',
+        currentStatusCode: 204,
+        history: [],
+        attempts: 1,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+      }
       
-      await repository.save(game)
+      await repository.save(saveData)
       
       expect(mockLocalStorage.setItem).toHaveBeenCalledWith(
         expect.stringContaining('204-exit-current-game'),
@@ -36,15 +43,22 @@ describe('LocalStorageGameRepository', () => {
         (mockLocalStorage.setItem as any).mock.calls[0][1]
       )
       
-      expect(savedData.id).toBe(game.id)
+      expect(savedData.id).toBe('test-game')
       expect(savedData.currentStatusCode).toBe(204)
       expect(savedData.attempts).toBe(1)
     })
 
     it('保存データに作成日時と更新日時が含まれる', async () => {
-      const game = Game.create()
+      const saveData = {
+        id: 'test-game-2',
+        currentStatusCode: 203,
+        history: [],
+        attempts: 1,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+      }
       
-      await repository.save(game)
+      await repository.save(saveData)
       
       const savedData = JSON.parse(
         (mockLocalStorage.setItem as any).mock.calls[0][1]

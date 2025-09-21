@@ -18,7 +18,7 @@
     <!-- メインコンテンツ -->
     <main class="flex-1 flex flex-col items-center justify-center p-4">
       <div v-if="!gameState" class="text-center">
-        <StartScreen @start="startNewGame" @continue="continueGame" />
+        <StartScreen @start="handleStartGame" @continue="handleContinueGame" />
       </div>
       
       <div v-else-if="isGameOver" class="text-center">
@@ -115,9 +115,24 @@ const {
   resetError
 } = useGame()
 
+const handleStartGame = async () => {
+  console.log('[GameContainer] handleStartGame called')
+  await startNewGame()
+  // gameStateはrefなので、script内では.valueが必要
+  console.log('[GameContainer] Game started, state:', (gameState as any).value || gameState)
+}
+
+const handleContinueGame = async () => {
+  console.log('[GameContainer] handleContinueGame called')
+  await continueGame()
+  // gameStateはrefなので、script内では.valueが必要  
+  console.log('[GameContainer] Game continued, state:', (gameState as any).value || gameState)
+}
+
 onMounted(() => {
-  // 自動的に継続可能なゲームを確認
-  continueGame()
+  console.log('[GameContainer] Component mounted')
+  // 初回起動時はタイトル画面を表示
+  // gameStateがnullのままなので、StartScreenが表示される
 })
 </script>
 
