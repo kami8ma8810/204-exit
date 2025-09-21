@@ -37,3 +37,6 @@ coverage
 # Playwright
 test-results
 playwright-report
+
+# その他
+deno.lock
