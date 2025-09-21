@@ -1,7 +1,5 @@
-import { expect, afterEach, vi } from 'vitest'
-import { cleanup } from '@vue/test-utils'
+import { afterEach, vi } from 'vitest'
 
 afterEach(() => {
-  cleanup()
   vi.clearAllMocks()
 })
