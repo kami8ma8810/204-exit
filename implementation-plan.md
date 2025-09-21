@@ -12,65 +12,62 @@
 ## 📋 TODOリスト
 
 ### Phase 1: プロジェクト初期セットアップ
-- [ ] プロジェクト構造の作成
-- [ ] package.json の作成と依存関係の定義
-- [ ] TypeScript設定（tsconfig.json）
-- [ ] Vite設定（vite.config.ts）
-- [ ] Tailwind CSS設定
-- [ ] テスト環境設定（Vitest）
-- [ ] ESLint/Prettier設定
-- [ ] .gitignore の設定
+- [x] プロジェクト構造の作成
+- [x] package.json の作成と依存関係の定義
+- [x] TypeScript設定（tsconfig.json）
+- [x] Vite設定（vite.config.ts）
+- [x] Tailwind CSS設定
+- [x] テスト環境設定（Vitest）
+- [x] ESLint/Prettier設定
+- [x] .gitignore の設定
 
 ### Phase 2: ドメイン層の実装（TDD）
 
 #### 値オブジェクト
-- [ ] StatusCode値オブジェクト
-  - [ ] テスト作成
-  - [ ] 実装（204, 203, 202, 201, 200, 404）
-- [ ] PageLevel値オブジェクト
-  - [ ] テスト作成
-  - [ ] 実装
-- [ ] AnomalyType値オブジェクト
-  - [ ] テスト作成
-  - [ ] 実装
+- [x] StatusCode値オブジェクト
+  - [x] テスト作成
+  - [x] 実装（204, 203, 202, 201, 200, 404）
+- [x] PageLevel値オブジェクト
+  - [x] テスト作成
+  - [x] 実装
+- [x] AnomalyType値オブジェクト
+  - [x] テスト作成
+  - [x] 実装
 
 #### エンティティ
-- [ ] Anomalyエンティティ
-  - [ ] テスト作成
-  - [ ] 実装（異変の定義と適用ロジック）
-- [ ] Pageエンティティ
-  - [ ] テスト作成
-  - [ ] 実装（ページ状態管理）
-- [ ] Gameエンティティ
-  - [ ] テスト作成
-  - [ ] 実装（ゲーム進行ロジック）
+- [x] Anomalyエンティティ
+  - [x] テスト作成
+  - [x] 実装（異変の定義と適用ロジック）
+- [x] Pageエンティティ
+  - [x] テスト作成
+  - [x] 実装（ページ状態管理）
+- [x] Gameエンティティ
+  - [x] テスト作成
+  - [x] 実装（ゲーム進行ロジック）
 
 #### リポジトリインターフェース
-- [ ] IGameRepository
-  - [ ] インターフェース定義
+- [x] IGameRepository
+  - [x] インターフェース定義
 
 ### Phase 3: アプリケーション層の実装
 
 #### ユースケース
-- [ ] StartGameUseCase
-  - [ ] テスト作成
-  - [ ] 実装（ゲーム初期化）
-- [ ] AdvancePageUseCase
-  - [ ] テスト作成
-  - [ ] 実装（次のページへ進む）
-- [ ] GoBackPageUseCase
-  - [ ] テスト作成
-  - [ ] 実装（前のページへ戻る）
-- [ ] CheckAnomalyUseCase
-  - [ ] テスト作成
-  - [ ] 実装（異変判定）
-- [ ] GameOverUseCase
-  - [ ] テスト作成
-  - [ ] 実装（ゲームオーバー処理）
+- [x] StartGameUseCase
+  - [x] テスト作成
+  - [x] 実装（ゲーム初期化）
+- [x] AdvancePageUseCase
+  - [x] テスト作成
+  - [x] 実装（次のページへ進む）
+- [x] GoBackPageUseCase
+  - [x] テスト作成
+  - [x] 実装（前のページへ戻る）
+- [x] RestartGameUseCase
+  - [x] テスト作成
+  - [x] 実装（リスタート処理）
 
 #### DTO
-- [ ] GameStateDTO
-  - [ ] 実装
+- [x] GameStateDTO
+  - [x] 実装
 
 ### Phase 4: インフラストラクチャ層の実装
 
@@ -97,22 +94,17 @@
   - [ ] z-indexの順序違い
 
 #### データ永続化
-- [ ] LocalStorageGameRepository
-  - [ ] テスト作成
-  - [ ] 実装（ゲーム状態の保存/読み込み）
-- [ ] GameStatisticsRepository
-  - [ ] テスト作成
-  - [ ] 実装（プレイ統計の記録）
+- [x] LocalStorageGameRepository
+  - [x] テスト作成
+  - [x] 実装（ゲーム状態の保存/読み込み）
 
 ### Phase 5: プレゼンテーション層の実装
 
 #### Vueコンポーネント
-- [ ] App.vue
+- [x] App.vue（初期版作成済み）
+- [x] GameContainer.vue
+  - [x] 実装（ゲーム全体のコンテナ）
   - [ ] テスト作成
-  - [ ] 実装
-- [ ] GameContainer.vue
-  - [ ] テスト作成
-  - [ ] 実装（ゲーム全体のコンテナ）
 - [ ] PageDisplay.vue
   - [ ] テスト作成
   - [ ] 実装（ページ表示）
@@ -133,20 +125,17 @@
   - [ ] 実装（スタート画面）
 
 #### Composables
-- [ ] useGame
+- [x] useGame
+  - [x] 実装
   - [ ] テスト作成
-  - [ ] 実装
-- [ ] useAnomalyDetection
+- [x] useAnomalyDisplay
+  - [x] 実装
   - [ ] テスト作成
-  - [ ] 実装
-- [ ] useGameStatistics
-  - [ ] テスト作成
-  - [ ] 実装
 
 #### ストア（Pinia）
-- [ ] gameStore
+- [x] gameStore
+  - [x] 実装
   - [ ] テスト作成
-  - [ ] 実装
 
 ### Phase 6: デザインシステム
 
